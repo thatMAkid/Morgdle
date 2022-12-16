@@ -567,6 +567,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
