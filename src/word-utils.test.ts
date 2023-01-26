@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { computeGuess, getRandomWord, LetterState } from './word-utils';
+import { computeGuess, LetterState } from './word-utils';
 
-describe('word-utils', () => {
-    it('random word', () => {
-        expect(getRandomWord()).toBeTruthy();
-        expect(getRandomWord().length).toEqual(5);
-    });
-});
 
 
 describe('computeGuess', () => {
@@ -47,7 +41,30 @@ describe('computeGuess', () => {
             LetterState.Miss,
             LetterState.Miss,
             LetterState.Miss
-        ])
+        ]);
     });
 
+    test('returns empty array when given incomplete guess', () => {
+        expect(computeGuess('so', 'boost')).toEqual([]);
+    });
+
+    test('when 2 letters are present but answer has only 1 of those letters', () => {
+        expect(computeGuess('allol', 'smelt')).toEqual([
+            LetterState.Miss,
+            LetterState.Present,
+            LetterState.Miss,
+            LetterState.Miss,
+            LetterState.Miss
+        ]);
+    });
+
+    test('when 1 letter matches but guess has more of the same letter', () => {
+        expect(computeGuess('allol', 'colon')).toEqual([
+            LetterState.Miss,
+            LetterState.Miss,
+            LetterState.Match,
+            LetterState.Match,
+            LetterState.Miss,
+        ]);
+    });
 });
